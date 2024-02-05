@@ -1,0 +1,240 @@
+﻿@using EntityLayer.Concrete
+@model List<BasketItemViewModel>
+<!-- CSS Stili -->
+<style>
+    /* Genel Sayfa Stili */
+    .div-ust-kisim body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header Stili */
+    .div-ust-kisim header {
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+
+    /* Sepet İçeriği Stili */
+    .div-ust-kisim .basket-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px;
+    }
+
+    /* Sepet İtem Stili */
+    .div-ust-kisim .basket-item {
+        background-color: white;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 15px;
+        overflow: hidden;
+        width: 300px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .div-ust-kisim .basket-item:hover {
+            transform: scale(1.05);
+        }
+
+    /* Hayvan Resmi Stili */
+    .div-ust-kisim .animal-image {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /* Sepet İtem Detayları Stili */
+    .div-ust-kisim .item-details {
+        padding: 15px;
+        text-align: left;
+    }
+
+    /* Sepet İtem Sil Buton Stili */
+    .div-ust-kisim .remove-button {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 10px;
+        width: 100%;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        .div-ust-kisim .remove-button:hover {
+            background-color: #c82333;
+        }
+
+    /* Confirm Button Container Stili */
+    .div-ust-kisim .confirm-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px; /* Add margin for spacing */
+    }
+
+    /* Siparişi Onayla Butonu Stili */
+    .div-ust-kisim .confirm-button {
+        background-color: #28a745;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        width: 200px; /* Adjust the width as needed */
+        border-radius: 10px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        .div-ust-kisim .confirm-button:hover {
+            background-color: #218838;
+        }
+
+    .div-ust-kisim .modal-content {
+        border-radius: 15px;
+    }
+
+    .div-ust-kisim .modal-header {
+        background-color: #007bff;
+        color: white;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .div-ust-kisim .modal-body {
+        padding: 20px;
+    }
+
+    .div-ust-kisim .modal-footer {
+        border-radius: 0 0 15px 15px;
+    }
+
+    /* Modal Görünümü */
+    #successModal {
+        font-family: 'Arial', sans-serif; /* Yazı tipi */
+        color: #333; /* Yazı rengi */
+    }
+
+        /* Modal Başlık */
+        #successModal .modal-title {
+            font-weight: bold;
+            color: #007bff; /* Başlık rengi */
+        }
+
+        /* Modal Gövde */
+        #successModal .modal-body {
+            background-color: #f8f9fa; /* Gövde arkaplan rengi */
+            padding: 20px;
+        }
+
+        /* Modal Kapatma Düğmesi */
+        #successModal .close {
+            color: #007bff; /* Kapatma düğmesi rengi */
+        }
+
+        /* Modal Footer */
+        #successModal .modal-footer {
+            background-color: #f8f9fa; /* Footer arkaplan rengi */
+        }
+
+        /* Kapatma Düğmesi Hover Efekti */
+        #successModal .close:hover {
+            color: #0056b3; /* Hover rengi */
+        }
+</style>
+
+<!-- Sayfa İçeriği -->
+<div class="div-ust-kisim">
+    @if (Model.Count == 0)
+    {
+        <header>
+            <h1>Sepetiniz Boş</h1>
+        </header>
+    }
+    else
+    {
+        <header>
+            <h1>Sepetim</h1>
+        </header>
+    }
+
+
+    <div class="basket-container">
+        @foreach (var item in Model)
+        {
+            <div class="basket-item">
+                <img style="height: 120px; object-fit: fill; border-radius: 8px; width: -webkit-fill-available;" src="~/images/@item.ImagePath" alt="İlan Resim" />
+                <div class="item-details">
+                    <h2>@item.AnimalName</h2>
+                    <p>@item.Description</p>
+                    <p><strong>Fiyat:</strong> @item.Price</p>
+                    <p><strong>Tür:</strong> @item.AnimalType</p>
+                    <!-- Diğer Advert özelliklerini ekleyebilirsiniz -->
+                </div>
+                <form method="post" action="/Basket/RemoveFromBasket">
+                    <input type="hidden" name="basketId" value="@item.BasketId" />
+                    <button type="submit" class="remove-button">Sepetten Çıkar</button>
+                </form>
+            </div>
+        }
+    </div>
+    @if (Model.Count > 0)
+    {
+        <div class="confirm-button-container">
+            <button onclick="confirmOrder()" class="confirm-button">Siparişi Onayla</button>
+        </div>
+    }
+
+</div>
+
+<!-- JavaScript ile Onaylama Fonksiyonu -->
+<script>
+    function confirmOrder() {
+        location.href = "/Basket/ConfirmOrder";
+        // Siparişi onaylama işlemleri için gerekli JavaScript kodları buraya eklenebilir
+        // Örneğin AJAX kullanarak server'a onaylama isteği gönderilebilir
+    }
+</script>
+
+<!-- JavaScript ile Silme Fonksiyonu -->
+<script>
+    function removeFromBasket(basketId) {
+        // Silme işlemleri için gerekli JavaScript kodları buraya eklenebilir
+        // Örneğin AJAX kullanarak server'a silme isteği gönderilebilir
+    }
+</script>
+
+@if (TempData["Message"] != null)
+{
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Bilgilendirme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@TempData["Message"]</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@if (TempData["Message"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#successModal').modal('show');
+        });
+    </script>
+}

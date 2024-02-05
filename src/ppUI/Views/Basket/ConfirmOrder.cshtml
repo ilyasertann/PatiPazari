@@ -1,0 +1,190 @@
+﻿@using EntityLayer.Concrete
+@model List<BasketItemViewModel>
+@{
+    decimal toplam = 0;
+    foreach (var item in Model)
+    {
+        toplam += item.Price;
+    }
+}
+<style>
+    .div-ust-kisim body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .div-ust-kisim {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .div-ust-kisim header {
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .div-ust-kisim .payment-details {
+            margin-top: 20px;
+        }
+
+            .div-ust-kisim .payment-details h5 {
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+                padding-bottom: 5px;
+            }
+
+            .div-ust-kisim .payment-details p {
+                margin: 10px 0;
+            }
+
+        .div-ust-kisim .order-details {
+            margin-top: 20px;
+        }
+
+            .div-ust-kisim .order-details h5 {
+                color: #28a745;
+                border-bottom: 2px solid #28a745;
+                padding-bottom: 5px;
+            }
+
+            .div-ust-kisim .order-details ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .div-ust-kisim .order-details li {
+                margin-bottom: 10px;
+            }
+
+        .div-ust-kisim table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        .div-ust-kisim table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        .div-ust-kisim th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .div-ust-kisim th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .div-ust-kisim .total-amount {
+            margin-top: 20px;
+        }
+
+            .div-ust-kisim .total-amount h6 {
+                color: #dc3545;
+                border-top: 2px solid #dc3545;
+                padding-top: 10px;
+            }
+
+        .div-ust-kisim form {
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .div-ust-kisim label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .div-ust-kisim input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        .div-ust-kisim button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            .div-ust-kisim button:hover {
+                background-color: #0056b3;
+            }
+</style>
+<div class="div-ust-kisim">
+    <header>
+        <h4>Sipariş Onayı</h4>
+    </header>
+    <div class="order-details">
+        <h5>Sipariş Detayları</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Resim</th>
+                    <th>Ürün Adı</th>
+                    <th>Açıklama</th>
+                    <th>Fiyat</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width:15%">
+                            <img style="height: 60px; object-fit: fill; border-radius: 8px; width: auto;" src="~/images/@item.ImagePath" alt="İlan Resim" />
+                        </td>
+                        <td>@item.AnimalName</td>
+                        <td>@item.Description</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <div class="total-amount">
+            <h6>Toplam Tutar: @toplam.ToString("N2")</h6>
+        </div>
+    </div>
+    <div class="payment-details">
+        <h5>Ödeme Bilgileri</h5>
+        <form id="payment-form" action="/Basket/ConfirmOrder" method="post">
+            <label for="CardNameSurName">Kart Adı Soyadı:</label>
+            <input type="text" id="card-holder" name="CardNameSurName" placeholder="Adınız Soyadınız" required>
+
+            <label for="CardCreditNumber">Kart Numarası:</label>
+            <input type="text" id="card-number" name="CardCreditNumber" placeholder="**** **** **** ****" required>
+
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <label for="CardCVV">CVV:</label>
+                    <input type="text" id="cvv" name="CardCVV" placeholder="***" required>
+                </div>
+                <div>
+                    <label for="CardDate">Son Kullanma Tarihi:</label>
+                    <input type="text" id="expiration-date" name="CardDate" placeholder="MM/YYYY" required>
+                </div>
+            </div>
+            <button type="submit">Ödemeyi Tamamla</button>
+        </form>
+    </div>
+</div>
+
+

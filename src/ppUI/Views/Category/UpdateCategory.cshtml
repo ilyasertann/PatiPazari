@@ -1,0 +1,17 @@
+﻿@using EntityLayer.Concrete
+@model Category
+
+<h2>Edit Category</h2>
+
+<form asp-action="UpdateCategory" method="post">
+    <input type="hidden" asp-for="ID" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <!-- Diğer alanlar eklenebilir -->
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -1,0 +1,89 @@
+﻿@using EntityLayer.Concrete
+@model List<Advert>
+    <div class="div-ust-kisim">
+
+
+        <h2>İlanlarım</h2>
+
+        <a asp-controller="Home" asp-action="AddAdvert" class="btn btn-primary mb-3">İlan Ekle</a>
+
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ad</th>
+                    <th>Açıklama</th>
+                    <th>Fiyat</th>
+                    <th>Tür</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var advert in Model)
+                {
+                    <tr>
+                        <td>@advert.ID</td>
+                        <td>@advert.AnimalName</td>
+                        <td>@advert.Description</td>
+                        <td>@advert.Price</td>
+                        <td>@advert.AnimalType</td>
+                        <td>
+                            <a asp-controller="Home" asp-action="UpdateAdvert" asp-route-id="@advert.ID">Düzenle</a> |
+                            <a asp-controller="Home" asp-action="DetailsAdvert" asp-route-id="@advert.ID">Detay Gör</a> |
+                            <a asp-controller="Home" asp-action="DeleteAdvert" asp-route-id="@advert.ID">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <style>
+        /* site.css */
+
+        /* Butonları düzenle */
+        div-ust-kisim .btn {
+            margin-right: 5px;
+        }
+
+        /* Tabloyu düzenle */
+        div-ust-kisim .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+
+            div-ust-kisim .table th, .table td {
+                padding: 0.75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+            }
+
+            div-ust-kisim .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            div-ust-kisim .table tbody + tbody {
+                border-top: 2px solid #dee2e6;
+            }
+
+        /* Formu düzenle */
+        div-ust-kisim .form-group {
+            margin-bottom: 1rem;
+        }
+
+        /* Sayfa başlığını düzenle */
+        div-ust-kisim h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Butonları bir düzeltme yaparak hizala */
+        div-ust-kisim .mb-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        /* Butonlara bir miktar boşluk ekle */
+        div-ust-kisim .btn-primary {
+            margin-bottom: 10px;
+        }
+    </style>

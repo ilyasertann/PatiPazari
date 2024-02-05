@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "DeleteAdvert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EntityLayer.Concrete.Advert
+<style>
+   .div-ust-kisim h4 {
+        color: #dc3545; /* Kırmızı renk */
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .div-ust-kisim .row {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .div-ust-kisim .col-md-4 {
+        background-color: #f8f9fa; /* Gri tonu */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .div-ust-kisim .col-md-4 dl {
+            margin-bottom: 20px;
+        }
+
+            .div-ust-kisim .col-md-4 dl dt {
+                color: #495057; /* Gri renk */
+                font-weight: bold;
+            }
+
+            .div-ust-kisim .col-md-4 dl dd {
+                color: #343a40; /* Koyu gri renk */
+            }
+
+        .div-ust-kisim .col-md-4 img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .div-ust-kisim .col-md-4 form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+           
+
+    .div-ust-kisim .btn-danger {
+        background-color: #dc3545; /* Kırmızı renk */
+        border-color: #dc3545; /* Kırmızı renk */
+    }
+
+        .div-ust-kisim .btn-danger:hover {
+            background-color: #bb2d3b; /* Koyu kırmızı renk */
+            border-color: #bb2d3b; /* Koyu kırmızı renk */
+        }
+
+    .div-ust-kisim .btn-primary {
+        background-color: #007bff; /* Mavi renk */
+        border-color: #007bff; /* Mavi renk */
+    }
+
+        .div-ust-kisim .btn-primary:hover {
+            background-color: #0056b3; /* Koyu mavi renk */
+            border-color: #0056b3; /* Koyu mavi renk */
+        }
+</style>
+<div class="div-ust-kisim">
+
+
+    <h4>İlan Silinecek Onaylıyor Musunuz</h4>
+
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="row">
+                <dt class="col-sm-4">ID:</dt>
+                <dd class="col-sm-8">@Model.ID</dd>
+
+                <dt class="col-sm-4">Adı:</dt>
+                <dd class="col-sm-8">@Model.AnimalName</dd>
+
+                <dt class="col-sm-4">Açıklama:</dt>
+                <dd class="col-sm-8">@Model.Description</dd>
+
+                <dt class="col-sm-4">Fiyat:</dt>
+                <dd class="col-sm-8">@Model.Price</dd>
+
+                <dt class="col-sm-4">Tür:</dt>
+                <dd class="col-sm-8">@Model.AnimalType</dd>
+
+                <dt class="col-sm-4">Kategori:</dt>
+                <dd class="col-sm-8">@GetCategoryName(Model.CategoryID)</dd>
+
+                <dt class="col-sm-4">Resim:</dt>
+                <dd class="col-sm-8">
+                    @if (!string.IsNullOrEmpty(Model.ImagePath))
+                    {
+                        <div style="border: 1px solid lightgray; border-radius: 8px; overflow: hidden; max-width: 100%;">
+                            <img style="width: 100%; height: auto; border-radius: 8px;" src="~/images/@Model.ImagePath" alt="İlan Resim" />
+                        </div>
+                    }
+                    else
+                    {
+                        <span>No Image</span>
+                    }
+                </dd>
+            </dl>
+
+            <form asp-controller="Home" asp-action="ConfirmDeleteAdvert" method="post">
+                <input type="hidden" asp-for="@Model.ID" />
+                <div style="display:flex">
+                    <div>
+                        <button type="submit" class="btn btn-danger">Evet</button>
+                    </div>
+                    <div>
+                        <a asp-controller="Home" asp-action="MyAccount" class="btn btn-primary">Hayır</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@functions {
+    public string GetCategoryName(int categoryId)
+    {
+        switch (categoryId)
+        {
+            case 3:
+                return "Evcil-Hayvanlar";
+            case 4:
+                return "Buyukbas-Hayvanlar";
+            case 5:
+                return "Kucukbas-Hayvanlar";
+            default:
+                return "Unknown";
+        }
+    }
+}

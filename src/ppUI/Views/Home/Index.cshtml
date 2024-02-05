@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .render-container {
+        padding: unset !important;
+    }
+</style>
+<div class="intro-slider-container">
+    <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light mb-0" data-toggle="owl" data-owl-options='{
+                        "dots": true,
+                        "nav": false,
+                        "responsive": {
+                            "1200": {
+                                "nav": true,
+                                "dots": false
+                            }
+                        }
+                    }'>
+        <div class="intro-slide" style="background-image: url(/assets/images/demos/demo-8/slider/slide-1.jpg);">
+            <div class="container intro-content text-left">
+                <h3 class="intro-subtitle">Hayatınıza Renk Katacak</h3>
+                <h1 class="intro-title">Dostlarınızın Malzemeleri<br><strong>Burada</strong></h1>
+            </div>
+            <img class="position-right" src="/assets/images/demos/demo-8/slider/img-1.png">
+        </div>
+        <div class="intro-slide" style="background-image: url(/assets/images/demos/demo-8/slider/slide-2.jpg);">
+            <div class="container intro-content text-right">
+                <h3 class="intro-subtitle">Evcil Hayvanınızla  </h3>
+                <h1 class="intro-title">TANIŞMA<br><strong>ZAMANI!</strong></h1>
+            </div>
+            <img class="position-left" src="/assets/images/demos/demo-8/slider/img-2.png">
+        </div>
+    </div>
+    <span class="slider-loader"></span>
+</div>
+<div class="pt-2 pb-2">
+    <div class="container brands">
+        <div class="banner-group">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="banner banner-overlay">
+                        <a href="/Home/Category/Evcil-Hayvanlar">
+                            <img src="~/assets/images/demos/demo-8/banners/cat.png" alt="Banner">
+                        </a>
+                        <div class="banner-content">
+                            @* <h4 class="banner-subtitle"><a href="#">Final reduction</a></h4> *@
+                            <h3 class="banner-title"><strong>Evcil Hayvan Malzemeleri</strong></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="banner banner-overlay">
+                        <a href="/Home/Category/Buyukbas-Hayvanlar">
+                            <img src="~/assets/images/demos/demo-8/banners/cow.png" alt="Banner">
+                        </a>
+                        <div class="banner-content">
+                            <h3 class="banner-title"><strong>Büyükbaş Hayvan Malzemeleri</strong></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 d-none d-lg-block">
+                    <div class="banner banner-overlay">
+                        <a href="/Home/Category/Kucukbas-Hayvanlar">
+                            <img src="~/assets/images/demos/demo-8/banners/sheep.png" alt="Banner">
+                        </a>
+                        <div class="banner-content">
+                            <h3 class="banner-title"><strong>Küçükbaş Hayvan Malzemeleri</strong></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

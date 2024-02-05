@@ -1,0 +1,111 @@
+﻿@using EntityLayer.Concrete
+@model Advert
+<div class="div-ust-kisim">
+    <h2>İlan Düzenle</h2>
+
+    <form asp-action="UpdateAdvert" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ID" />
+
+        <div class="form-group">
+            <label asp-for="AnimalName">Ad</label>
+            <input asp-for="AnimalName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Açıklama</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Fiyat</label>
+            <input asp-for="Price" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AnimalType">Tür</label>
+            <input asp-for="AnimalType" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryID">Kategori</label>
+            <select asp-for="CategoryID" asp-items="@GetCategorySelectListItems()" class="form-control">
+                <option value="">Select a category</option>
+            </select>
+        </div>
+
+       
+
+        <!-- Dosya yükleme alanı eklendi -->
+        <div class="form-group">
+            <label asp-for="ImageFile">Resim</label>
+            <input type="file" asp-for="ImageFile" class="form-control" />
+        </div>
+        <!-- Dosya yükleme alanı eklendi -->
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+    @functions {
+        public List<SelectListItem> GetCategorySelectListItems()
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem { Value = "3", Text = "Evcil-Hayvanlar" },
+                new SelectListItem { Value = "4", Text = "Buyukbas-Hayvanlar" },
+                new SelectListItem { Value = "5", Text = "Kucukbas-Hayvanlar" }
+                // Diğer kategoriler eklenmeli
+            };
+        }
+    }
+</div>
+
+<style>
+    /* site.css */
+
+    /* Formu düzenle */
+    .div-ust-kisim .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Etiketleri düzenle */
+    .div-ust-kisim label {
+        font-weight: bold;
+    }
+
+    /* Input ve textarea'ları düzenle */
+    .div-ust-kisim input[type="text"],
+    textarea,
+    .div-ust-kisim input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Select'i düzenle */
+    .div-ust-kisim select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Butonu düzenle */
+    .div-ust-kisim .btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .div-ust-kisim .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>

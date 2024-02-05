@@ -1,0 +1,16 @@
+﻿@using EntityLayer.Concrete
+@model Category
+
+<h2>Add Category</h2>
+
+<form asp-action="CreateCategory" method="post">
+    <div class="form-group">
+        <!-- ID'yi hidden olarak ekleyin -->
+        <input type="hidden" asp-for="ID" />
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <!-- Diğer alanlar eklenebilir -->
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

@@ -1,0 +1,30 @@
+﻿@using EntityLayer.Concrete
+@model IEnumerable<Category>
+
+<h2>Category List</h2>
+
+<a asp-controller="Category" asp-action="CreateCategory" class="btn btn-primary">Add New Category</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.ID</td>
+                <td>@category.Name</td>
+                <td>
+                    <a asp-controller="Category" asp-action="UpdateCategory" asp-route-id="@category.ID">Edit</a> |
+                    <a asp-controller="Category" asp-action="GetCategoryById" asp-route-id="@category.ID">Details</a> |
+                    <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@category.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

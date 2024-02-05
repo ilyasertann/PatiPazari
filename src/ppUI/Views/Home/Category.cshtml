@@ -1,0 +1,126 @@
+﻿@using EntityLayer.Concrete
+@model List<Advert>
+
+<script src="~/assets/page/Category/category.js"></script>
+
+<style>
+    .satin-al {
+        text-align: center;
+        background-color: #eea287;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+    }
+
+        .satin-al:hover {
+            box-shadow: 0px 0px 5px 2px lightgray;
+        }
+
+        .satin-al button {
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+            .satin-al button:hover {
+                color: gray;
+            }
+
+    /* Modal Görünümü */
+    #successModal {
+        font-family: 'Arial', sans-serif; /* Yazı tipi */
+        color: #333; /* Yazı rengi */
+    }
+
+        /* Modal Başlık */
+        #successModal .modal-title {
+            font-weight: bold;
+            color: #007bff; /* Başlık rengi */
+        }
+
+        /* Modal Gövde */
+        #successModal .modal-body {
+            background-color: #f8f9fa; /* Gövde arkaplan rengi */
+            padding: 20px;
+        }
+
+        /* Modal Kapatma Düğmesi */
+        #successModal .close {
+            color: #007bff; /* Kapatma düğmesi rengi */
+        }
+
+        /* Modal Footer */
+        #successModal .modal-footer {
+            background-color: #f8f9fa; /* Footer arkaplan rengi */
+        }
+
+        /* Kapatma Düğmesi Hover Efekti */
+        #successModal .close:hover {
+            color: #0056b3; /* Hover rengi */
+        }
+</style>
+
+@{
+    if (Model.Count != 0)
+    {
+        if (Model[0].CategoryID == 3)
+        {
+            <h4 class="text-center">Evcil Hayvan Malzemeleri</h4>
+        }
+        else if (Model[0].CategoryID == 4)
+        {
+            <h4 class="text-center">Büyükbaş Hayvan Malzemeleri</h4>
+        }
+        else if (Model[0].CategoryID == 5)
+        {
+            <h4 class="text-center">Küçükbaş Hayvan Malzemeleri</h4>
+        }
+    }
+    else
+    {
+        <h4 class="text-center">Liste Boş</h4>
+
+    }
+}
+
+
+<div style="display: flex; flex-wrap: wrap;justify-content: center;">
+    @foreach (var item in Model)
+    {
+        <form action="/Home/AddBasket/@item.ID" method="get" style="margin:1.5%;">
+            <div style="border: 1px solid lightgray; border-radius: 8px; padding: 5px; max-width: 20%; margin: 2%; width: 250px; max-width: 250px; height: 360px; ">
+                <div style="height:33%;">
+                    <img style="height: 120px; object-fit: fill; border-radius: 8px; width: -webkit-fill-available;" src="~/images/@item.ImagePath" alt="İlan Resim" />
+                </div>
+                <div class="advert-details" style="height:52%;text-align:center;padding:3%;">
+                    <p><strong>Adı:</strong> @item.AnimalName</p>
+                    <p><strong>Açıklaması:</strong> @item.Description</p>
+                    <p><strong>Fiyatı:</strong> @item.Price</p>
+                    <p><strong>Türü:</strong> @item.AnimalType</p>
+                </div>
+                <div class="satin-al">
+                    <button type="submit" class="btn add-basket">Sepete Ekle</button>
+                </div>
+            </div>
+        </form>
+    }
+</div>
+
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Bilgilendirme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
